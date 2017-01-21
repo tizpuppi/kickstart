@@ -1,0 +1,49 @@
+<nav class="pa3 pa4-ns">
+    <%= link "KickStart", to: page_path(@conn, :index), class: "ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" %>
+</nav>
+<div class="mw6 center">
+    <h1 class="ssp-x-light f1 lh-title">Sign Up</h1>
+    <p class="ssp-light mv3 f4 lh-copy">Connect with a social network account</p>
+    <a class="link near-black hover-mid-gray" href="#">
+        <i class="mh3 fa fa-github fa-5x" aria-hidden="true"></i>
+    </a>
+    <a class="link near-black hover-blue" href="#">
+        <i class="mh3 fa fa-facebook-official fa-5x" aria-hidden="true"></i>
+    </a>
+    <a class="link near-black hover-light-blue" href="#">
+        <i class="mh3 fa fa-twitter-square fa-5x" aria-hidden="true"></i>
+    </a>
+    <a class="link near-black hover-red" href="#">
+        <i class="mh3 fa fa-google-plus-official fa-5x" aria-hidden="true"></i>
+    </a>
+    <p class="ssp-light mv3 f4 lh-copy">or register the old way</p>
+    <%= form_for @changeset, user_path(@conn, :create), [class: "mb4"], fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+
+      <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+        <%= label f, :username, class: "mdc-textfield__label pb1" %>
+        <%= text_input f, :username, class: "mdc-textfield__input" %>
+        <%= error_tag f, :username, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+      </div>
+
+      <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+        <%= label f, :email, class: "mdc-textfield__label pb1" %>
+        <%= text_input f, :email, class: "mdc-textfield__input" %>
+        <%= error_tag f, :email, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+      </div>
+
+      <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+        <%= label f, :password, class: "mdc-textfield__label pb1" %>
+        <%= text_input f, :password, class: "mdc-textfield__input" %>
+        <%= error_tag f, :password, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+      </div>
+
+      <%= submit "Create Account", class: "mdc-button mdc-button--raised mdc-button--accent mdc-ripple-surface" %>
+    <% end %>
+
+    <p class="ssp-light f4 lh-copy">Have already an account? <a href="#" class="link blue">Login</a></p>
+</div>
