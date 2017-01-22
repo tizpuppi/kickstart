@@ -18,6 +18,8 @@
         </div>
         <div class="mv4">
             <%= link "Edit", to: user_path(@conn, :edit, @user), class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mr1" %>
+            <%= link "Delete", to: user_path(@conn, :delete, @user), method: :delete, data: [confirm: "Are you sure?"],
+                class: "f6 no-underline grow dib v-mid red ba b--red ph3 pv2 ml0", form: [class: "di", enforce_utf8: false] %>
             <%= link "Back", to: user_path(@conn, :index),  class: "f6 no-underline grow dib v-mid black ba b--black ph3 pv2 ml1" %>
         </div>
     </article>
