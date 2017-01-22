@@ -16,7 +16,7 @@
       </thead>
       <tbody>
     <%= for user <- @users do %>
-        <tr>
+        <tr class="striped--near-white dim">
           <td class="ph4"><%= user.username %></td>
           <td class="ph4"><%= user.email %></td>
           <td class="ph4"><%= user.password %></td>

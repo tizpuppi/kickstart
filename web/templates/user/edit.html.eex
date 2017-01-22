@@ -1,6 +1,44 @@
-<h2>Edit user</h2>
+<nav class="pa3 pa4-ns">
+    <%= link "KickStart", to: page_path(@conn, :index), class: "ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" %>
+</nav>
+<div class="mw6 center">
+    <h1 class="ssp-x-light f1 lh-title">Modify user profile</h1>
+        <div class="tc">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="br-100 h4 w4 dib ba b--black-05 pa2" title="Photo of a kitty staring at you">
+            <h1 class="f3 mb2"><%= @user.username %></h1>
+            <hr class="mw3 bb bw1 b--black-10">
+            <p class="lh-copy measure center f6 black-70">
+                Hi there! Tell me somthing about you.
+            </p>
+        </div>
 
-<%= render "form.html", changeset: @changeset,
-                        action: user_path(@conn, :update, @user) %>
+<%= form_for @changeset, user_path(@conn, :update, @user), [class: "mb4"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
 
-<%= link "Back", to: user_path(@conn, :index) %>
+  <div class="mdc-textfield mdc-textfield--fullwidth mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+    <%= label f, :username, class: "mdc-textfield__label mdc-textfield__label--float-above pb1" %>
+    <%= text_input f, :username, class: "mdc-textfield__input" %>
+    <%= error_tag f, :username, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+  </div>
+
+  <div class="mdc-textfield mdc-textfield--fullwidth mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+    <%= label f, :email, class: "mdc-textfield__label mdc-textfield__label--float-above pb1" %>
+    <%= text_input f, :email, class: "mdc-textfield__input" %>
+    <%= error_tag f, :email, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+  </div>
+
+  <div class="mdc-textfield mdc-textfield--fullwidth mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+    <%= label f, :password, class: "mdc-textfield__label mdc-textfield__label--float-above pb1" %>
+    <%= text_input f, :password, class: "mdc-textfield__input" %>
+    <%= error_tag f, :password, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+  </div>
+
+  <%= submit "Save", class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mr1" %>
+  <%= link "Back", to: user_path(@conn, :index),  class: "f6 no-underline grow dib v-mid black ba b--black ph3 pv2 ml1" %>
+<% end %>
+
+</div>
