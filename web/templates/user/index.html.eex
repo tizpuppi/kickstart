@@ -1,28 +1,35 @@
-<h2>Listing users</h2>
+<nav class="pa3 pa4-ns">
+    <%= link "KickStart", to: page_path(@conn, :index), class: "ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" %>
+</nav>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Password</th>
+<div class="mw7 center">
+    <h2 class="ssp-light f1 lh-title">All users</h2>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.username %></td>
-      <td><%= user.email %></td>
-      <td><%= user.password %></td>
+    <table class="table mb4 ssp-light">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for user <- @users do %>
+        <tr>
+          <td class="ph4"><%= user.username %></td>
+          <td class="ph4"><%= user.email %></td>
+          <td class="ph4"><%= user.password %></td>
 
-      <td class="text-right">
-        <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <td class="ph4">
+            <%= link "Show", to: user_path(@conn, :show, user), class: "f6 no-underline grow dib v-mid black ba b--black ph3 pv2 ml1" %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
 
-<%= link "New user", to: user_path(@conn, :new) %>
+    <%= link "New user", to: user_path(@conn, :new), class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mr1"%>
+</div>
+
+
