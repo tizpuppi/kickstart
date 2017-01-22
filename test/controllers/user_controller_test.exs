@@ -29,7 +29,7 @@ defmodule Kickstart.UserControllerTest do
   test "shows chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "Show user"
+    assert html_response(conn, 200) =~ "Profile"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
