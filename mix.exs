@@ -42,6 +42,7 @@ defmodule Kickstart.Mixfile do
      {:comeonin, "~> 3.0"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_identity, "~> 0.2"},
+     {:ueberauth_facebook, "~> 0.6"},
      {:ueberauth_github, "~> 0.4"},
      {:ueberauth_google, "~> 0.5"}]
   end
