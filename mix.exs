@@ -19,7 +19,8 @@ defmodule Kickstart.Mixfile do
   def application do
     [mod: {Kickstart, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex,
+                    :comeonin, :ueberauth, :ueberauth_identity, :ueberauth_github, :ueberauth_google]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +38,12 @@ defmodule Kickstart.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:comeonin, "~> 3.0"},
+     {:ueberauth, "~> 0.4"},
+     {:ueberauth_identity, "~> 0.2"},
+     {:ueberauth_github, "~> 0.4"},
+     {:ueberauth_google, "~> 0.5"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

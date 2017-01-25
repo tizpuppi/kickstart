@@ -1,6 +1,8 @@
 defmodule Kickstart.Router do
   use Kickstart.Web, :router
 
+  require Ueberauth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -28,6 +30,13 @@ defmodule Kickstart.Router do
     # user_path  PATCH   /users/:id       HelloPhoenix.UserController :update
     #            PUT     /users/:id       HelloPhoenix.UserController :update
     # user_path  DELETE  /users/:id       HelloPhoenix.UserController :delete
+  end
+
+  scope "/auth", Kickstart do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.

@@ -37,7 +37,7 @@
     <%= error_tag f, :password, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
   </div>
 
-  <%= submit "Save", class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mr1" %>
+  <%= submit "Save", class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mr1 mv4" %>
   <%= link "Back", to: user_path(@conn, :index),  class: "f6 no-underline grow dib v-mid black ba b--black ph3 pv2 ml1" %>
 <% end %>
 

@@ -4,9 +4,7 @@
 <div class="mw6 center">
     <h1 class="ssp-x-light f1 lh-title">Sign Up</h1>
     <p class="ssp-light mv3 f4 lh-copy">Connect with a social network account</p>
-    <a class="link near-black hover-mid-gray" href="#">
-        <i class="mh3 fa fa-github fa-5x" aria-hidden="true"></i>
-    </a>
+    <%= link "", to: auth_path(@conn, :request, "github"), class: "link near-black hover-mid-gray mh3 fa fa-github fa-5x" %>
     <a class="link near-black hover-blue" href="#">
         <i class="mh3 fa fa-facebook-official fa-5x" aria-hidden="true"></i>
     </a>
