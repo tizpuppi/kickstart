@@ -20,7 +20,13 @@ defmodule Kickstart.Mixfile do
     [mod: {Kickstart, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex,
-                    :comeonin, :ueberauth, :ueberauth_identity, :ueberauth_github, :ueberauth_google]]
+                    :comeonin,
+                    :ueberauth,
+                    :ueberauth_identity,
+                    :ueberauth_twitter,
+                    :ueberauth_facebook,
+                    :ueberauth_github,
+                    :ueberauth_google]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,10 +46,12 @@ defmodule Kickstart.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
+     {:oauth, github: "tim/erlang-oauth"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_identity, "~> 0.2"},
      {:ueberauth_facebook, "~> 0.6"},
      {:ueberauth_github, "~> 0.4"},
+     {:ueberauth_twitter, "~> 0.2"},
      {:ueberauth_google, "~> 0.5"}]
   end
 

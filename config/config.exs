@@ -38,7 +38,10 @@ config :ueberauth, Ueberauth,
                                              default_scope: "email,public_profile"]},
     google: {Ueberauth.Strategy.Google, [request_path: "/auth/google",
                                          callback_path: "/auth/google/callback",
-                                         default_scope: "email profile"]}
+                                         default_scope: "email profile"]},
+    twitter: {Ueberauth.Strategy.Twitter, [request_path: "/auth/twitter",
+                                           callback_path: "/auth/twitter/callback",
+                                           default_scope: "email profile"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
@@ -54,4 +57,8 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),
   redirect_uri: System.get_env("GOOGLE_REDIRECT_URI")
+
+config :ueberauth, Ueberauth.Strategy.Twitter.OAuth,
+  consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
+  consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET")
 
