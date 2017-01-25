@@ -35,7 +35,10 @@ config :ueberauth, Ueberauth,
     },
     facebook: {Ueberauth.Strategy.Facebook, [request_path: "/auth/facebook",
                                              callback_path: "/auth/facebook/callback",
-                                             default_scope: "email,public_profile"]}
+                                             default_scope: "email,public_profile"]},
+    google: {Ueberauth.Strategy.Google, [request_path: "/auth/google",
+                                         callback_path: "/auth/google/callback",
+                                         default_scope: "email profile"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
@@ -46,4 +49,9 @@ config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
   client_id: System.get_env("FACEBOOK_APP_ID"),
   client_secret: System.get_env("FACEBOOK_APP_SECRET"),
   redirect_uri: System.get_env("FACEBOOK_REDIRECT_URI")
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),
+  redirect_uri: System.get_env("GOOGLE_REDIRECT_URI")
 

@@ -9,9 +9,7 @@
     <a class="link near-black hover-light-blue" href="#">
         <i class="mh3 fa fa-twitter-square fa-5x" aria-hidden="true"></i>
     </a>
-    <a class="link near-black hover-red" href="#">
-        <i class="mh3 fa fa-google-plus-official fa-5x" aria-hidden="true"></i>
-    </a>
+    <%= link "", to: auth_path(@conn, :request, "google"), class: "link near-black hover-red mh3 fa fa-google-plus-official fa-5x" %>
     <p class="ssp-light mv3 f4 lh-copy">or register the old way</p>
     <%= form_for @changeset, user_path(@conn, :create), [class: "mb4"], fn f -> %>
       <%= if @changeset.action do %>
