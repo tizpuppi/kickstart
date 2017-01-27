@@ -18,7 +18,7 @@ defmodule Kickstart.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Kickstart, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+     applications: [:bamboo, :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex,
                     :comeonin,
                     :ueberauth,
@@ -52,7 +52,8 @@ defmodule Kickstart.Mixfile do
      {:ueberauth_facebook, "~> 0.6"},
      {:ueberauth_github, "~> 0.4"},
      {:ueberauth_twitter, "~> 0.2"},
-     {:ueberauth_google, "~> 0.5"}]
+     {:ueberauth_google, "~> 0.5"},
+     {:bamboo, "~> 0.8"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

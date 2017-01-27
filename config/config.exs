@@ -62,3 +62,6 @@ config :ueberauth, Ueberauth.Strategy.Twitter.OAuth,
   consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
   consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET")
 
+config :kickstart, Kickstart.Mailer,
+  adapter: Bamboo.LocalAdapter
+

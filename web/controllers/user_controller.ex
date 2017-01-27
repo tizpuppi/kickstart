@@ -2,6 +2,8 @@ defmodule Kickstart.UserController do
   use Kickstart.Web, :controller
 
   alias Kickstart.User
+  alias Kickstart.Mailer
+  alias Kickstart.Email
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -17,7 +19,10 @@ defmodule Kickstart.UserController do
     changeset = User.changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
+        Email.registration_email(user.email)
+        |> Mailer.deliver_now
+
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :index))
