@@ -4,7 +4,10 @@ defmodule Kickstart.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    field :is_admin, :boolean
     field :password, :string
+
+    has_many :authentications, Kickstart.Authentication
 
     timestamps()
   end
@@ -15,6 +18,6 @@ defmodule Kickstart.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password])
-    |> validate_required([:username, :email, :password])
+    |> validate_required([:username])
   end
 end

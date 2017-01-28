@@ -7,6 +7,8 @@ defmodule Kickstart.AuthController do
   plug Ueberauth
 
   alias Ueberauth.Strategy.Helpers
+  alias Kickstart.UserFromAuth
+  alias Kickstart.Repo
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
@@ -19,16 +21,14 @@ defmodule Kickstart.AuthController do
     |> redirect(to: "/")
   end
 
-  def callback(%{assigns: %{ueberauth_failure: fails}} = conn, _params) do
-    find_or_create(fails)
+  def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
     conn
     |> put_flash(:error, "Failed to authenticate.")
     |> redirect(to: "/")
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    #case UserFromAuth.find_or_create(auth) do
-    case find_or_create(auth) do
+    case UserFromAuth.find_or_create(auth, Repo) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully authenticated.")
@@ -41,7 +41,4 @@ defmodule Kickstart.AuthController do
     end
   end
 
-  defp find_or_create(_auth) do
-    {:ok, :user}
-  end
 end
