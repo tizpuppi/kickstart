@@ -6,7 +6,7 @@ defmodule Kickstart.Repo.Migrations.CreateAuthentication do
       add :provider, :string
       add :uid, :string
       add :token, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end
