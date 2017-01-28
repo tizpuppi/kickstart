@@ -4,7 +4,20 @@ defmodule Kickstart.UserFromAuth do
   alias Kickstart.Authentication
 
   def find_or_create(auth, repo) do
-    repo.transaction(fn -> create_user_from_auth(auth, repo) end)
+    # If user has logged in with the same provider in the past, load registered user
+    case get_auth(auth, repo) do
+      {:error, :not_found} -> repo.transaction(fn -> create_user_from_auth(auth, repo) end)
+      {:ok, user} -> {:ok, user}
+    end
+  end
+
+  defp get_auth(auth, repo) do
+    case repo.get_by(Authentication, uid: auth.uid, provider: to_string(auth.provider)) do
+      nil -> {:error, :not_found}
+      authentication ->
+        authentication = repo.preload(authentication, :user)
+        {:ok, repo.get!(User, authentication.user_id)}
+    end
   end
 
   defp create_user_from_auth(auth, repo) do
