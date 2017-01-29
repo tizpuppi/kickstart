@@ -46,7 +46,7 @@ defmodule Kickstart.Router do
   end
 
   scope "/auth", Kickstart do
-    pipe_through :browser
+    pipe_through [:browser, :browser_auth]
 
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
