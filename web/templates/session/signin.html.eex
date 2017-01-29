@@ -1,0 +1,45 @@
+<nav class="pa3 pa4-ns">
+    <%= link "KickStart", to: page_path(@conn, :index), class: "ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" %>
+</nav>
+<div class="mw9 center ph3-ns">
+    <div class="cf ph2-ns">
+        <div class="fl w-100 w-50-ns pa2 tc">
+            <h1 class="ssp-x-light f1 lh-title">Connect with a social network</h1>
+            <%= link "", to: auth_path(@conn, :request, "github"), class: "link near-black hover-mid-gray mh3 fa fa-github fa-5x" %>
+            <%= link "", to: auth_path(@conn, :request, "facebook"), class: "link near-black hover-blue mh3 fa fa-facebook-official fa-5x" %>
+            <%= link "", to: auth_path(@conn, :request, "twitter"), class: "link near-black hover-light-blue mh3 fa fa-twitter-square fa-5x" %>
+            <%= link "", to: auth_path(@conn, :request, "google"), class: "link near-black hover-red mh3 fa fa-google-plus-official fa-5x" %>
+            <p class="ssp-light f3 mt5 lh-copy">New to KickHub? <%= link "Sign up", to: user_path(@conn, :new), class: "link blue" %></p>
+
+        </div>
+        <div class="fl w-100 w-50-ns pa2 bl tc">
+            <h1 class="ssp-x-light f1 lh-title">or the retro way</h1>
+            <p class="ssp-light mv3 f4 lh-copy">Tired of typing password? <a href="#" class="link blue">Use Magic Link instead</a></p>
+            <form action="#" id="greeting-form">
+                <div class="mb4">
+                    <div class="mh4 mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+                        <input id="email" type="email" class="mdc-textfield__input">
+                        <label for="email" class="mdc-textfield__label pb1">
+                            Email
+                        </label>
+                    </div>
+
+                    <div class="mh4 mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+                        <input id="password" type="password" class="mdc-textfield__input">
+                        <label for="password" class="mdc-textfield__label pb1">
+                            Password
+                        </label>
+                    </div>
+
+                </div>
+                <button type="submit" class="mdc-button mdc-button--raised mdc-button--accent mdc-ripple-surface"
+                        data-mdc-auto-init="MDCRipple">
+                    Login
+                </button>
+
+            </form>
+            <p class="ssp-light f4 lh-copy">Forgot password? <a href="#" class="link blue">Reset password</a></p>
+
+        </div>
+    </div>
+</div>

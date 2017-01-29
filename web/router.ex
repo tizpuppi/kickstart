@@ -11,6 +11,11 @@ defmodule Kickstart.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -34,6 +39,10 @@ defmodule Kickstart.Router do
     # user_path  PATCH   /users/:id       HelloPhoenix.UserController :update
     #            PUT     /users/:id       HelloPhoenix.UserController :update
     # user_path  DELETE  /users/:id       HelloPhoenix.UserController :delete
+
+    get    "/login",  SessionController, :new
+    post   "/login",  SessionController, :create
+    delete "/logout", SessionController, :delete
   end
 
   scope "/auth", Kickstart do
