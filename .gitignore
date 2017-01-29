@@ -23,6 +23,7 @@ erl_crash.dump
 # variables.
 /config/prod.secret.exs
 /config/dev.secret.exs
+/config/oct-128-bit.bin
 
 # Webstorm config folder
 .idea/

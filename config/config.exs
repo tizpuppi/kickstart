@@ -62,6 +62,16 @@ config :ueberauth, Ueberauth.Strategy.Twitter.OAuth,
   consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
   consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET")
 
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "Kickstart",
+  ttl: { 30, :days },
+  allowed_drift: 2000,
+  verify_issuer: true, # optional
+  secret_key: fn -> JOSE.JWK.from_oct_file(System.get_env("GUARDIAN_JWK_FILE")) end,
+  serializer: Kickstart.GuardianSerializer
+
 config :kickstart, Kickstart.Mailer,
   adapter: Bamboo.LocalAdapter
 

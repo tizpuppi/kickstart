@@ -53,7 +53,8 @@ defmodule Kickstart.Mixfile do
      {:ueberauth_github, "~> 0.4"},
      {:ueberauth_twitter, "~> 0.2"},
      {:ueberauth_google, "~> 0.5"},
-     {:bamboo, "~> 0.8"}]
+     {:bamboo, "~> 0.8"},
+     {:guardian, "~> 0.14"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
