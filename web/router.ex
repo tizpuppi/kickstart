@@ -39,10 +39,6 @@ defmodule Kickstart.Router do
     # user_path  PATCH   /users/:id       HelloPhoenix.UserController :update
     #            PUT     /users/:id       HelloPhoenix.UserController :update
     # user_path  DELETE  /users/:id       HelloPhoenix.UserController :delete
-
-    get    "/login",  SessionController, :new
-    post   "/login",  SessionController, :create
-    delete "/logout", SessionController, :delete
   end
 
   scope "/auth", Kickstart do

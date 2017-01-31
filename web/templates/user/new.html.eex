@@ -37,5 +37,5 @@
       <%= submit "Create Account", class: "mdc-button mdc-button--raised mdc-button--accent mdc-ripple-surface" %>
     <% end %>
 
-    <p class="ssp-light f4 lh-copy">Have already an account? <%= link "Log in", to: session_path(@conn, :new), class: "link blue" %></p>
+    <p class="ssp-light f4 lh-copy">Have already an account? <%= link "Log in", to: auth_path(@conn, :request, "identity"), class: "link blue" %></p>
 </div>
