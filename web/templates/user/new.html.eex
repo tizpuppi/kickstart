@@ -24,13 +24,13 @@
 
       <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
         <%= label f, :email, class: "mdc-textfield__label pb1" %>
-        <%= text_input f, :email, class: "mdc-textfield__input" %>
+        <%= email_input f, :email, class: "mdc-textfield__input" %>
         <%= error_tag f, :email, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
       </div>
 
       <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
         <%= label f, :password, class: "mdc-textfield__label pb1" %>
-        <%= text_input f, :password, class: "mdc-textfield__input" %>
+        <%= password_input f, :password, class: "mdc-textfield__input" %>
         <%= error_tag f, :password, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
       </div>
 

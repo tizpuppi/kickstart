@@ -10,7 +10,7 @@
     <h2 class="fw1 f3 white-80 mt3 mb4">Boost your next web application: the hard part is already done! :)</h2>
     <%= link "Signup", to: user_path(@conn, :new), class: "f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mb3" %>
     <span class="dib v-mid ph3 white-70 mb3">or</span>
-    <%= link "Log in", to: session_path(@conn, :new), class: "f6 no-underline grow dib v-mid white ba b--white ph3 pv2 mb3" %>
+    <%= link "Log in", to: auth_path(@conn, :request, "identity"), class: "f6 no-underline grow dib v-mid white ba b--white ph3 pv2 mb3" %>
   </div>
                 
 

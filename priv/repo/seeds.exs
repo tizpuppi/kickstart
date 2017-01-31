@@ -9,3 +9,16 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Kickstart.Repo
+alias Kickstart.User
+alias Kickstart.Authentication
+
+user = %User{username: "test", email: "test@example.com"}
+identity = %Authentication{provider: "identity",
+                           uid: "test@example.com",
+                           token: Comeonin.Bcrypt.hashpwsalt("123456"),
+                           user: user}
+
+Repo.insert!(identity)
+

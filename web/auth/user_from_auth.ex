@@ -11,6 +11,21 @@ defmodule Kickstart.UserFromAuth do
     end
   end
 
+  def validate_password(auth, repo) do
+    stored_auth = repo.get_by(Authentication, uid: auth.uid, provider: to_string(auth.provider))
+    authentication = repo.preload(stored_auth, :user)
+
+    cond do
+      stored_auth && Comeonin.Bcrypt.checkpw(auth.credentials.other.password, authentication.token) ->
+        {:ok, repo.get!(User, authentication.user_id)}
+      stored_auth ->
+        {:error, "wrong password"}
+      true ->
+         Comeonin.Bcrypt.dummy_checkpw()
+         {:error, "user not found"}
+    end
+  end
+
   defp get_auth(auth, repo) do
     case repo.get_by(Authentication, uid: auth.uid, provider: to_string(auth.provider)) do
       nil -> {:error, :not_found}

@@ -41,7 +41,11 @@ config :ueberauth, Ueberauth,
                                          default_scope: "email profile"]},
     twitter: {Ueberauth.Strategy.Twitter, [request_path: "/auth/twitter",
                                            callback_path: "/auth/twitter/callback",
-                                           default_scope: "email profile"]}
+                                           default_scope: "email profile"]},
+    identity: {Ueberauth.Strategy.Identity , [request_path: "/auth/identity",
+                                              callback_path: "/auth/identity/callback",
+                                              callback_methods: ["POST"],
+                                              param_nesting: "user"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
@@ -69,7 +73,7 @@ config :guardian, Guardian,
   ttl: { 30, :days },
   allowed_drift: 2000,
   verify_issuer: true, # optional
-  secret_key: fn -> JOSE.JWK.from_oct_file(System.get_env("GUARDIAN_JWK_FILE")) end,
+  secret_key: {Kickstart.SecretKey, :fetch},
   serializer: Kickstart.GuardianSerializer
 
 config :kickstart, Kickstart.Mailer,
