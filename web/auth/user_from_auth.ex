@@ -3,11 +3,18 @@ defmodule Kickstart.UserFromAuth do
   alias Kickstart.User
   alias Kickstart.Authentication
 
-  def find_or_create(auth, repo) do
-    # If user has logged in with the same provider in the past, load registered user
-    case get_auth(auth, repo) do
-      {:error, :not_found} -> repo.transaction(fn -> create_user_from_auth(auth, repo) end)
-      {:ok, user} -> {:ok, user}
+  def find_or_create(auth, repo, current_user) do
+    require Logger
+    Logger.debug("find_or_create: #{inspect(current_user)}")
+    if current_user do
+      # If already logged in, add authentication
+      create_auth_from_user(auth, repo, current_user)
+    else
+      # If user has logged in with the same provider in the past, load registered user
+      case get_auth(auth, repo) do
+        {:error, :not_found} -> repo.transaction(fn -> create_user_from_auth(auth, repo) end)
+        {:ok, user} -> {:ok, user}
+      end
     end
   end
 
@@ -35,6 +42,13 @@ defmodule Kickstart.UserFromAuth do
     end
   end
 
+  defp create_auth_from_user(auth, repo, current_user) do
+    authentication = Ecto.build_assoc(current_user, :authentications, %Authentication{provider: to_string(auth.provider),
+                                 uid: auth.uid,
+                                 token: to_string(auth.credentials.token)})
+    repo.insert(authentication, on_conflict: :replace_all)
+  end
+
   defp create_user_from_auth(auth, repo) do
 
     name = name_from_auth(auth)
@@ -42,7 +56,7 @@ defmodule Kickstart.UserFromAuth do
     auth_changeset = Authentication.changeset(%Authentication{},
                                               %{provider: to_string(auth.provider),
                                                 uid: auth.uid,
-                                                token: Comeonin.Bcrypt.hashpwsalt(to_string(auth.credentials.token))})
+                                                token: to_string(auth.credentials.token)})
     user_with_auth = Ecto.Changeset.put_assoc(user_changeset, :authentications, [auth_changeset])
 
     repo.insert(user_with_auth)

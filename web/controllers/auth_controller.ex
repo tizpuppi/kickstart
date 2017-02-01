@@ -35,8 +35,8 @@ defmodule Kickstart.AuthController do
     |> redirect(to: "/")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params, _current_user) do
-    case UserFromAuth.find_or_create(auth, Repo) do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params, current_user) do
+    case UserFromAuth.find_or_create(auth, Repo, current_user) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully authenticated.")
