@@ -18,9 +18,10 @@ defmodule Kickstart.UserController do
 
   def create(conn, %{"user" => user_params}) do
     user_changeset = User.changeset(%User{}, user_params)
-
-    auth_changeset = Authentication.changeset(%Authentication{}, %{provider: "identity", uid: user_params["email"], token: Comeonin.Bcrypt.hashpwsalt(user_params["password"])})
-
+    auth_changeset = Authentication.changeset(%Authentication{},
+                                              %{provider: "identity",
+                                                uid: user_params["email"],
+                                                token: Comeonin.Bcrypt.hashpwsalt(user_params["password"])})
     user_with_auth = Ecto.Changeset.put_assoc(user_changeset, :authentications, [auth_changeset])
 
     case Repo.insert(user_with_auth) do

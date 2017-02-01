@@ -36,15 +36,16 @@ defmodule Kickstart.UserFromAuth do
   end
 
   defp create_user_from_auth(auth, repo) do
+
     name = name_from_auth(auth)
-    result = User.changeset(%User{}, %{email: auth.info.email, username: name})
-      |> repo.insert
+    user_changeset = User.changeset(%User{}, %{email: auth.info.email, username: name, password: "dummypass"})
+    auth_changeset = Authentication.changeset(%Authentication{},
+                                              %{provider: to_string(auth.provider),
+                                                uid: auth.uid,
+                                                token: Comeonin.Bcrypt.hashpwsalt(to_string(auth.credentials.token))})
+    user_with_auth = Ecto.Changeset.put_assoc(user_changeset, :authentications, [auth_changeset])
 
-    case result do
-      {:ok, user} -> authorization_from_auth(user, auth, repo)
-      {:error, reason} -> repo.rollback(reason)
-    end
-
+    repo.insert(user_with_auth)
   end
 
 
@@ -59,22 +60,6 @@ defmodule Kickstart.UserFromAuth do
         |> Enum.filter(&(&1 != nil and String.strip(&1) != ""))
         |> Enum.join(" ")
       end
-    end
-  end
-
-  defp authorization_from_auth(user, auth, repo) do
-    authentications = Ecto.build_assoc(user, :authentications)
-    result = Authentication.changeset(authentications,
-      %{
-        provider: to_string(auth.provider),
-        uid: auth.uid,
-        token: to_string(auth.credentials.token)
-      }
-    ) |> repo.insert
-
-    case result do
-      {:ok, the_auth} -> the_auth
-      {:error, reason} -> repo.rollback(reason)
     end
   end
 

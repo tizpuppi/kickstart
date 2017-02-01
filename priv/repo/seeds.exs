@@ -14,10 +14,10 @@ alias Kickstart.Repo
 alias Kickstart.User
 alias Kickstart.Authentication
 
-user = %User{username: "test", email: "test@example.com"}
+user = %User{username: "test", email: "test@example.com", password: "123456"}
 identity = %Authentication{provider: "identity",
-                           uid: "test@example.com",
-                           token: Comeonin.Bcrypt.hashpwsalt("123456"),
+                           uid: user.email,
+                           token: Comeonin.Bcrypt.hashpwsalt(user.password),
                            user: user}
 
 Repo.insert!(identity)
