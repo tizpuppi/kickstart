@@ -15,9 +15,15 @@ defmodule Kickstart.User do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password])
     |> validate_required([:username, :email, :password])
+  end
+
+  def social_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:username, :email])
+    |> validate_required([:username])
   end
 end

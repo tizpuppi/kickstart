@@ -38,7 +38,7 @@ defmodule Kickstart.UserFromAuth do
   defp create_user_from_auth(auth, repo) do
 
     name = name_from_auth(auth)
-    user_changeset = User.changeset(%User{}, %{email: auth.info.email, username: name, password: "dummypass"})
+    user_changeset = User.social_changeset(%User{}, %{email: auth.info.email, username: name})
     auth_changeset = Authentication.changeset(%Authentication{},
                                               %{provider: to_string(auth.provider),
                                                 uid: auth.uid,

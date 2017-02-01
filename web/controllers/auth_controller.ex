@@ -18,7 +18,7 @@ defmodule Kickstart.AuthController do
   alias Kickstart.Repo
 
   def request(conn, _params, _current_user) do
-    changeset = User.changeset(%User{})
+    changeset = User.registration_changeset(%User{})
     render(conn, "signin.html", callback_url: Helpers.callback_url(conn), changeset: changeset)
   end
 
