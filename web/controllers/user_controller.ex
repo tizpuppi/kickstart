@@ -2,6 +2,7 @@ defmodule Kickstart.UserController do
   use Kickstart.Web, :controller
 
   alias Kickstart.User
+  alias Kickstart.Authentication
   alias Kickstart.Mailer
   alias Kickstart.Email
 
@@ -16,9 +17,13 @@ defmodule Kickstart.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
+    user_changeset = User.changeset(%User{}, user_params)
 
-    case Repo.insert(changeset) do
+    auth_changeset = Authentication.changeset(%Authentication{}, %{provider: "identity", uid: user_params["email"], token: Comeonin.Bcrypt.hashpwsalt(user_params["password"])})
+
+    user_with_auth = Ecto.Changeset.put_assoc(user_changeset, :authentications, [auth_changeset])
+
+    case Repo.insert(user_with_auth) do
       {:ok, user} ->
         Email.registration_email(user.email)
         |> Mailer.deliver_now

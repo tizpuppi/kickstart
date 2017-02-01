@@ -15,17 +15,6 @@ defmodule Kickstart.UserControllerTest do
     assert html_response(conn, 200) =~ "Sign Up"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == user_path(conn, :index)
-    assert Repo.get_by(User, @valid_attrs)
-  end
-
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "Sign Up"
-  end
-
   test "shows chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
@@ -42,13 +31,6 @@ defmodule Kickstart.UserControllerTest do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :edit, user)
     assert html_response(conn, 200) =~ "Modify user profile"
-  end
-
-  test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = put conn, user_path(conn, :update, user), user: @valid_attrs
-    assert redirected_to(conn) == user_path(conn, :show, user)
-    assert Repo.get_by(User, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do

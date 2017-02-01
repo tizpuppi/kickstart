@@ -5,7 +5,7 @@ defmodule Kickstart.User do
     field :username, :string
     field :email, :string
     field :is_admin, :boolean
-    field :password, :string
+    field :password, :string, virtual: true
 
     has_many :authentications, Kickstart.Authentication
 
@@ -18,6 +18,6 @@ defmodule Kickstart.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password])
-    |> validate_required([:username])
+    |> validate_required([:username, :email, :password])
   end
 end

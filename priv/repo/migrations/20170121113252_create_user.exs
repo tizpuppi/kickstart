@@ -6,7 +6,6 @@ defmodule Kickstart.Repo.Migrations.CreateUser do
       add :username, :string
       add :email, :string
       add :is_admin, :boolean, default: false
-      add :password, :string
 
       timestamps()
     end
