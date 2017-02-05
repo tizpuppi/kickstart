@@ -1,0 +1,9 @@
+<nav class="pa3 pa4-ns">
+    <a class="ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" href="#" title="Home">
+        KickHub
+    </a>
+</nav>
+<div class="mw7 tc center">
+    <h1 class="ssp-x-light f1 lh-title">Check your email</h1>
+    <p class="ssp-light mv3 f4 lh-copy">An email has been sent to <%= @email %> to confirm your address</p>
+</div>

@@ -14,12 +14,63 @@ defmodule Kickstart.AuthController do
 
   alias Ueberauth.Strategy.Helpers
   alias Kickstart.UserFromAuth
+  alias Kickstart.RegistrationToken
   alias Kickstart.User
   alias Kickstart.Repo
+  alias Kickstart.Email
+  alias Kickstart.Mailer
 
   def request(conn, _params, _current_user) do
     changeset = User.registration_changeset(%User{})
     render(conn, "signin.html", callback_url: Helpers.callback_url(conn), changeset: changeset)
+  end
+
+  def register(conn, _params, _current_user) do
+    changeset = RegistrationToken.registration_token(%RegistrationToken{})
+    render(conn, "registration.html", changeset: changeset)
+  end
+
+  def confirm(conn, %{"registration_token" => registration_param}, _current_user) do
+    email = String.downcase(registration_param["email"])
+    case Repo.get_by(RegistrationToken, email: email) do
+      nil -> nil
+      registration -> Repo.delete!(registration)
+    end
+    changeset = RegistrationToken.registration_token(%RegistrationToken{}, registration_param)
+
+    case Repo.insert(changeset) do
+      {:ok, registration} ->
+        Email.registration_email(registration.email, registration.registration_token)
+          |> Mailer.deliver_now
+
+        render(conn, "create.html", email: registration.email)
+      {:error, changeset} ->
+        render(conn, "registration.html", changeset: changeset)
+    end
+  end
+
+  def confirm_token(conn, %{"token" => token}, _current_user) do
+    case Repo.get_by(RegistrationToken, registration_token: token) do
+      nil ->
+        conn
+        |> put_flash(:error, "Not valid.")
+#       |> Guardian.Plug.sign_in(user)
+        |> redirect(to: "/")
+      token ->
+        if RegistrationToken.valid?(token) do
+          Repo.delete!(token)
+          conn
+          |> put_flash(:info, "Successfully authenticated.")
+#         |> Guardian.Plug.sign_in(user)
+          |> redirect(to: "/")
+        else
+          Repo.delete!(token)
+          conn
+          |> put_flash(:error, "Not valid.")
+#         |> Guardian.Plug.sign_in(user)
+          |> redirect(to: "/")
+        end
+     end
   end
 
   def delete(conn, _params, _current_user) do

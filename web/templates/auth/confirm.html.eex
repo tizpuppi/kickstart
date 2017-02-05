@@ -1,0 +1,34 @@
+<nav class="pa3 pa4-ns">
+    <a class="ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" href="#" title="Home">
+        KickHub
+    </a>
+</nav>
+<div class="mw6 center">
+    <h1 class="ssp-x-light f1 lh-title">Almost done ...</h1>
+    <p class="ssp-light mv3 f4 lh-copy">Choose a unique username</p>
+    <%= form_for @changeset, @callback_url, fn f -> %>
+        <%= if @changeset.action do %>
+            <div class="alert alert-danger">
+                <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
+        <% end %>
+
+        <div class="mb4">
+            <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+                <%= label f, :username, class: "mdc-textfield__label pb1" %>
+                <%= text_input f, :username, class: "mdc-textfield__input" %>
+                <%= error_tag f, :username, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+            </div>
+
+            <p class="ssp-light mv3 f4 lh-copy">and an optional password</p>
+            <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+                <%= label f, :password, class: "mdc-textfield__label pb1" %>
+                <%= password_input f, :password, class: "mdc-textfield__input" %>
+                <%= error_tag f, :password, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+            </div>
+        </div>
+        <%= submit "Done", class: "mdc-button mdc-button--raised mdc-button--accent mdc-ripple-surface" %>
+    <%= end %>
+
+    <p class="ssp-light f4 lh-copy">Why password is optional? <a href="signin.html" class="link blue">Learn more ...</a></p>
+</div>

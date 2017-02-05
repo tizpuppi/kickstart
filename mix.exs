@@ -46,6 +46,7 @@ defmodule Kickstart.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
+     {:secure_random, "~> 0.5"},
      {:oauth, github: "tim/erlang-oauth"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_identity, "~> 0.2"},

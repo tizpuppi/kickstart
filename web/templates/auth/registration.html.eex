@@ -1,0 +1,31 @@
+<nav class="pa3 pa4-ns">
+    <%= link "KickStart", to: page_path(@conn, :index), class: "ssp-x-light link dim black b f1 f-headline-ns tc db mb3 mb4-ns" %>
+</nav>
+<div class="mw6 center">
+    <h1 class="ssp-x-light f1 lh-title">Sign Up</h1>
+    <p class="ssp-light mv3 f4 lh-copy">Connect with a social network account</p>
+    <%= link "", to: auth_path(@conn, :request, "github"), class: "link near-black hover-mid-gray mh3 fa fa-github fa-5x" %>
+    <%= link "", to: auth_path(@conn, :request, "facebook"), class: "link near-black hover-blue mh3 fa fa-facebook-official fa-5x" %>
+    <%= link "", to: auth_path(@conn, :request, "twitter"), class: "link near-black hover-light-blue mh3 fa fa-twitter-square fa-5x" %>
+    <%= link "", to: auth_path(@conn, :request, "google"), class: "link near-black hover-red mh3 fa fa-google-plus-official fa-5x" %>
+    <p class="ssp-light mv3 f4 lh-copy">or register the old way</p>
+    <%= form_for @changeset, auth_path(@conn, :confirm), [class: "mb4"], fn f -> %>
+      <div class="mb3">
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
+
+        <div class="mdc-textfield mdc-textfield--fullwidth" data-mdc-auto-init="MDCTextfield">
+          <%= label f, :email, class: "mdc-textfield__label pb1" %>
+          <%= email_input f, :email, class: "mdc-textfield__input" %>
+          <%= error_tag f, :email, class: "mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg" %>
+        </div>
+      </div>
+
+      <%= submit "Create Account", class: "mdc-button mdc-button--raised mdc-button--accent mdc-ripple-surface" %>
+    <% end %>
+
+    <p class="ssp-light f4 lh-copy">Have already an account? <%= link "Log in", to: auth_path(@conn, :request, "identity"), class: "link blue" %></p>
+</div>

@@ -18,4 +18,10 @@ defmodule Kickstart.Authentication do
     |> cast(params, [:provider, :uid, :token])
     |> validate_required([:provider, :uid, :token])
   end
+
+  def registration_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:uid])
+    |> validate_required([:uid])
+  end
 end
