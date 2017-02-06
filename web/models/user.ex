@@ -18,7 +18,7 @@ defmodule Kickstart.User do
   def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password])
-    |> validate_required([:username, :email, :password])
+    |> validate_required([:username, :email])
   end
 
   def social_changeset(struct, params \\ %{}) do

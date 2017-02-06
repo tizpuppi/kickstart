@@ -6,7 +6,7 @@
 <div class="mw6 center">
     <h1 class="ssp-x-light f1 lh-title">Almost done ...</h1>
     <p class="ssp-light mv3 f4 lh-copy">Choose a unique username</p>
-    <%= form_for @changeset, @callback_url, fn f -> %>
+    <%= form_for @changeset, user_path(@conn, :create), fn f -> %>
         <%= if @changeset.action do %>
             <div class="alert alert-danger">
                 <p>Oops, something went wrong! Please check the errors below.</p>

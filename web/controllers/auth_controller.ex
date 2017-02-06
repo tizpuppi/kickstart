@@ -50,27 +50,26 @@ defmodule Kickstart.AuthController do
   end
 
   def confirm_token(conn, %{"token" => token}, _current_user) do
-    case Repo.get_by(RegistrationToken, registration_token: token) do
-      nil ->
-        conn
-        |> put_flash(:error, "Not valid.")
-#       |> Guardian.Plug.sign_in(user)
-        |> redirect(to: "/")
-      token ->
-        if RegistrationToken.valid?(token) do
-          Repo.delete!(token)
-          conn
-          |> put_flash(:info, "Successfully authenticated.")
-#         |> Guardian.Plug.sign_in(user)
-          |> redirect(to: "/")
-        else
-          Repo.delete!(token)
-          conn
-          |> put_flash(:error, "Not valid.")
-#         |> Guardian.Plug.sign_in(user)
-          |> redirect(to: "/")
-        end
-     end
+    token? =
+      case Repo.get_by(RegistrationToken, registration_token: token) do
+        nil -> nil
+        token ->
+          if RegistrationToken.valid?(token) do
+            token
+          else
+            nil
+          end
+       end
+
+    if token? do
+      Repo.delete!(token?)
+      changeset = User.registration_changeset(%User{email: token?.email})
+      render(conn, "confirm.html", changeset: changeset)
+    else
+      conn
+      |> put_flash(:error, "Not valid.")
+      |> redirect(to: "/")
+    end
   end
 
   def delete(conn, _params, _current_user) do
